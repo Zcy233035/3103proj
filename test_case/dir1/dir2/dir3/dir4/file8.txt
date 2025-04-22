@@ -1,0 +1,1 @@
+GPUs are being increasingly adopted as compute accelerators in many domains, spanning environments from mobile computing systems to the cloud computing devices.

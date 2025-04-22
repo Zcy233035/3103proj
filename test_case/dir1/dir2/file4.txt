@@ -1,0 +1,1 @@
+If users claim that they do not want the emergency handler to be used due to some reasons, for example because in some cases the emergency handler may bring more trouble, or they just want the vehicle stopped and wait when emergency events happened.
