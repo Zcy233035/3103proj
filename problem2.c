@@ -221,7 +221,10 @@ int main(int argc, char **argv) {
                     current_processing_filename[MAX_FILENAME_LEN -1] = '\0';
                     current_file_word_count = 0;
                 }
-                current_file_word_count += wordCount(child_shm_ptr->data, child_shm_ptr->data_size);
+                if (child_shm_ptr->data_size < SHM_SIZE) {
+                    child_shm_ptr->data[child_shm_ptr->data_size] = '\0';
+                }
+                current_file_word_count += wordCount(child_shm_ptr->data);
             }
 
             if (child_shm_ptr->is_last_chunk) {
@@ -244,11 +247,8 @@ int main(int argc, char **argv) {
         }
 
         printf("Child process: Total word count: %ld\n", total_word_count);
-        if (saveResult("p2_result.txt", total_word_count) != 0) {
-            fprintf(stderr, "Child process: Failed to save result.\n");
-        } else {
-            printf("Child process: Result saved to p2_result.txt\n");
-        }
+        saveResult("p2_result.txt", (int)total_word_count);
+        printf("Child process: Result saved to p2_result.txt\n");
 
         if (strlen(matching_filename) > 0) {
             printf("Child process: File matching criteria (last digit %d): %s\n", STUDENT_ID_LAST_DIGIT, matching_filename);
